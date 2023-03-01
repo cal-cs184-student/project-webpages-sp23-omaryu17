@@ -491,8 +491,13 @@
   <u>Load dae/cube.dae. Perform several iterations of loop subdivision on the cube. Notice that the cube becomes slightly asymmetric after repeated subdivisions. Can you pre-process the cube with edge flips and splits so that the cube subdivides symmetrically? Document these effects and explain why they occur. Also explain how your pre-processing helps alleviate the effects.</u>
 </b>
 <p>
-    For the dae/cube.dae input, we noticed that after several iterations of loop subdivision, the cube becomes slightly asymmetric after repeated subdivisions. We can pre-process the cube with edge splits so that the cube subdivides symmetrically. Specifically, we can achieve this by taking the diagonal edge on each face of the cube and splitting those edges. So, we do six splitEdge operations total (one for each face of the cube) before doing loop subdivision. Here is how our cube ends up looking before and after doing this pre-processing, where the left column represents the original cube and the right column represents the pre-processed cube:
-
+    For the dae/cube.dae input, we noticed that after several iterations of loop subdivision, the cube becomes slightly asymmetric after repeated subdivisions. The reason why the cube becomes this way is due to there only being one diagonal edge on each face of the cube, which affects the newly updated vertex position after a split edge operation since it is weighted differently by the positions of the four neighboring vertices. This results in the cube trending toward a slight diagonal-looking orientation with each subdivision.
+</p>
+<p>
+	We can pre-process the cube with edge splits so that the cube subdivides symmetrically. Specifically, we can achieve this by taking the diagonal edge on each face of the cube and splitting those edges. So, we do six splitEdge operations total (one for each face of the cube) before doing loop subdivision. This alleviates the previously mentioned effects as the new vertex created from the split edge operation will now have its position properly weighted by its neighboring vertices, since there will now be a central vertex on each face and 4 edges connecting it to the corner vertices of each face.
+</p>
+<p>
+	Here is how our cube ends up looking before and after doing this pre-processing, where the left column represents the original cube and the right column represents the pre-processed cube:
 </p>
 <div align="middle">
 	<table style="width:100%">
