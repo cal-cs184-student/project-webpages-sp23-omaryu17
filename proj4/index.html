@@ -712,31 +712,34 @@
 	</u>
   </h3>
   <p>
-	Bump Mapping and Displacement Mapping are
+	Bump Mapping and Displacement Mapping are two different techniques used to change the visual look of an object, giving details that are not actually in the object's mesh. For Bump Mapping, we modified the normal vectors of the object in order to allow the fragment shader to make use of an encoded height map within the texture. The implementation for this is detailed in the Implementation Summary at the beginning of this section. For Displacement Mapping, we directly modified the position of the vertices to reflect this encoded height map, along with actually modifying the normals as we did in Bump Mapping. To do so, we modified the vertex shader to displace vertex positions, while we kept the fragment shader the same as the Bump Mapping implementation.
   </p>
   <p>
-	Here are the bump and displacement mapping screenshots on the cloth and the sphere, both using <em>texture_4.png</em>:
+	Looking at the renders below, the objects do have a significant difference between the object's geometry. Bump Mapping does provide the object with a shading that displays the texture being applied, simulating bumps and details without actually modifying the underlying object model. On the other hand, Displacement Mapping results in a render with visible deformations of the sphere, as we directly displaced the vertex positions in the vertex shader for our object.
+  </p>
+  <p>
+	Here are the bump and displacement mapping screenshots on the cloth and the sphere, both using <em>texture_3.png</em>:
   </p>
   <!-- Example of including multiple figures -->
 <div align="middle">
 	<table style="width:100%">
 	  <tr align="center">
 		<td>
-		  <img src="images/p5bumpsphere.png" align="middle" width="400px"/>
+		  <img src="images/p5bumpha.png" align="middle" width="400px"/>
 		  <figcaption>Bump mapping sphere</figcaption>
 		</td>
 		<td>
-		  <img src="images/p5bumpcloth.png" align="middle" width="400px"/>
+		  <img src="images/p5bumpclothha.png" align="middle" width="400px"/>
 		  <figcaption>Bump mapping cloth</figcaption>
 		</td>
 	  </tr>
 	  <tr align="center">
 		<td>
-		  <img src="images/p5displacesphere.png" align="middle" width="400px"/>
+		  <img src="images/p5displaceha.png" align="middle" width="400px"/>
 		  <figcaption>Displacement mapping sphere</figcaption>
 		</td>
 		<td>
-		  <img src="images/p5displacecloth.png" align="middle" width="400px"/>
+		  <img src="images/p5displaceclothha.png" align="middle" width="400px"/>
 		  <figcaption>Displacement mapping cloth</figcaption>
 		</td>
 	  </tr>
@@ -744,7 +747,7 @@
   </div>
 
   <p>
-	The two shaders react differently to the sphere when changing the sphere mesh's coarseness
+	The two shaders react differently to the sphere when changing the sphere mesh's coarseness. For Bump Mapping, the sphere does have a bit of visual change between the resolutions from 16 to 128. Particularly, the 128-resolution render looks more full and smoothed out, but otherwise there are not really any major differences. This is because the Bump Mapping shader is only supposed to affect the texture rather than the object itself, giving it a smoother texture look. However, for Displacement Mapping, there is a large difference between the two renders. At the 16-resolution render, we can clearly see the deformities of the sphere that give it the non-uniform look. This is a result of low-resolution leading to a lack of vertices compared to the higher resolution render. At the 128-resolution render, the displacement of vertices becomes much less prominent and the sphere is a more accurate representation of the expected shape of the sphere.
   </p>
   <p>
 	Here are the bump and displacement mapping screenshots on the the sphere with either -o and -a set to 16 or 128, both using <em>texture_4.png</em>:
@@ -754,21 +757,21 @@
 	<table style="width:100%">
 	  <tr align="center">
 		<td>
-		  <img src="images/p5bumpsphere16.png" align="middle" width="400px"/>
+		  <img src="images/p5bump16ha.png" align="middle" width="400px"/>
 		  <figcaption>Bump mapping sphere with -o, -a = 16</figcaption>
 		</td>
 		<td>
-		  <img src="images/p5bumpsphere128.png" align="middle" width="400px"/>
+		  <img src="images/p5bump128ha.png" align="middle" width="400px"/>
 		  <figcaption>Bump mapping sphere with -o, -a = 128</figcaption>
 		</td>
 	  </tr>
 	  <tr align="center">
 		<td>
-		  <img src="images/p5displacesphere16.png" align="middle" width="400px"/>
+		  <img src="images/p5displace16ha.png" align="middle" width="400px"/>
 		  <figcaption>Displacement mapping sphere with -o, -a = 16</figcaption>
 		</td>
 		<td>
-		  <img src="images/p5displacesphere128.png" align="middle" width="400px"/>
+		  <img src="images/p5displaceha128.png" align="middle" width="400px"/>
 		  <figcaption>Displacement mapping sphere with -o, -a = 128</figcaption>
 		</td>
 	  </tr>
